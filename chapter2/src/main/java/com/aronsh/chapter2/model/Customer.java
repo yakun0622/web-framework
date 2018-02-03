@@ -9,11 +9,14 @@
 */
 package com.aronsh.chapter2.model;
 
+import com.aronsh.chapter2.annotation.Table;
+
 /**
  * @author wangyakun
  * @email yakun0622@gmail.com
  * @date 2018/1/17 22:24
  */
+@Table("customer")
 public class Customer {
     private long id;
 
@@ -73,5 +76,17 @@ public class Customer {
 
     public void setRemark(String remark) {
         this.remark = remark;
+    }
+
+    @Override
+    public String toString() {
+        return "Customer{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", contact='" + contact + '\'' +
+                ", telephone='" + telephone + '\'' +
+                ", email='" + email + '\'' +
+                ", remark='" + remark + '\'' +
+                '}';
     }
 }

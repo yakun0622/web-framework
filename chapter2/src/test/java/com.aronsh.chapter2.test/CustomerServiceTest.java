@@ -9,12 +9,16 @@
 */
 package com.aronsh.chapter2.test;
 
+import com.aronsh.chapter2.helper.DatabaseHelper;
 import com.aronsh.chapter2.model.Customer;
 import com.aronsh.chapter2.service.CustomerService;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -25,6 +29,7 @@ import java.util.Map;
  * @date 2018/1/25 00:27
  */
 public class CustomerServiceTest {
+    private static final Logger LOGGER = LoggerFactory.getLogger(CustomerServiceTest.class);
     private final CustomerService customerService;
 
     public CustomerServiceTest() {
@@ -32,13 +37,16 @@ public class CustomerServiceTest {
     }
 
     @Before
-    public void init(){
-        // Todo 初始化数据库
+    public void init() throws IOException {
+        DatabaseHelper.excuteSqlFile("sql/customer-init.sql");
     }
 
     @Test
     public void getCustomerListTest(){
         List<Customer> customerList = customerService.getCustomerList(null);
+        for (Customer customer : customerList){
+            LOGGER.info(customer.toString());
+        }
         Assert.assertEquals(2, customerList.size());
     }
 
@@ -46,6 +54,7 @@ public class CustomerServiceTest {
     public void getCustomerTest(){
         long id =1;
         Customer customer = customerService.getCustomer(id);
+        LOGGER.info(customer.toString());
         Assert.assertNotNull(customer);
     }
 
